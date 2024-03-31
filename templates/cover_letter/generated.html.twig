@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lettre de motivation générée{% endblock %}
+
+{% block body %}
+<div class="max-w-4xl mx-auto my-10 p-5 shadow-lg rounded-lg bg-white dark:bg-gray-800">
+    <h1 class="text-3xl font-semibold text-center text-gray-800 dark:text-white mb-8">Lettre de motivation</h1>
+    {% if generatedText %}
+    <div class="generated-letter text-gray-600 dark:text-gray-300 leading-relaxed">
+        {{ generatedText|nl2br }}
+    </div>
+    {% else %}
+    <p class="text-center text-red-500">Une erreur s'est produite lors de la génération de la lettre de motivation. Veuillez réessayer.</p>
+    {% endif %}
+</div>
+{% endblock %}

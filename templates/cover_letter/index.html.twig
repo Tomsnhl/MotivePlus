@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Générer une lettre de motivation{% endblock %}
+
+{% block body %}
+<!-- Hire Us -->
+<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <div class="max-w-xl mx-auto">
+    <div class="text-center">
+      <h1 class="text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
+        Prêt à générer votre lettre de motivation avec AI ?
+      </h1>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        Remplissez le formulaire et nous générerons une lettre de motivation personnalisée pour vous.
+      </p>
+    </div>
+
+    <div class="mt-12">
+      <!-- Form -->
+      {{ form_start(form) }}
+        <div class="grid gap-4 lg:gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+            {{ form_row(form.nom, {'attr': {'class': 'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600', 'placeholder': 'Votre nom'}}) }}
+            {{ form_row(form.prenom, {'attr': {'class': 'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600', 'placeholder': 'Votre prénom'}}) }}
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+            {{ form_row(form.diplome, {'attr': {'class': 'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600', 'placeholder': 'Votre Diplome'}}) }}
+            {{ form_row(form.experience, {'attr': {'class': 'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600', 'placeholder': 'Votre Experience'}}) }}
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+            {{ form_row(form.entreprise, {'attr': {'class': 'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600', 'placeholder': 'L\'entreprise visée'}}) }}
+            {{ form_row(form.poste, {'attr': {'class': 'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600', 'placeholder': 'Le poste visé'}}) }}
+          </div>
+
+          {{ form_row(form.annonce, {'attr': {'class': 'py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600', 'placeholder': 'Détails de l\'annonce emploi visée', 'rows': '4'}}) }}
+
+          {{ form_row(form._token) }}
+        <div class="mt-6 grid">
+          <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-purple-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" style="background-color: #C12DC0; hover:bg-purple-700;">Générer ma lettre</button>
+        </div>
+            {{ form_end(form, {'render_rest': false}) }}
+    </div>
+  </div>
+</div>
+
+<!-- Modal de chargement avec Tailwind CSS -->
+<div id="loadingModal" class="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center hidden" aria-labelledby="modalTitle" role="dialog" aria-modal="true">
+  <div class="relative p-5 border w-96 shadow-lg rounded-lg bg-white flex flex-col items-center">
+    <!-- Icône de chargement personnalisée -->
+    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-12 w-12 mb-4"></div>
+    <h3 class="text-lg font-medium text-gray-900" id="modalTitle">Génération en cours...</h3>
+    <p class="text-sm text-gray-500 mt-2">Votre lettre de motivation est en cours de génération, veuillez patienter.</p>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.querySelector("form");
+  const loadingModal = document.getElementById("loadingModal");
+
+  form.addEventListener("submit", function() {
+    // Affiche le modal de chargement
+    loadingModal.classList.remove("hidden");
+    // Pas besoin de cacher le modal ici, car la page va être rechargée/redirigée
+  });
+});
+</script>
+{% endblock %}
+
